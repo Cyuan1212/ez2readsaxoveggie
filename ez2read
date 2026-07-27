@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>薩沁蔡節目冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #4c7440;
+    --red-dark: #32522F;
+    --cream: #FBF6E9;
+    --ink: #201A16;
+    --gold: #F7DF87;
+    --blue: #746840;
+    --line: rgba(32,26,22,0.14);
+    --shadow: 0 6px 16px rgba(32,26,22,0.16);
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--red);
+    color: var(--ink);
+    font-family:"Noto Sans TC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body{
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--red);
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(255,255,255,0.05), transparent 40%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 6px);
+    padding-bottom: 92px;
+    position: relative;
+  }
+
+  /* ---------- Header ---------- */
+  .shop-header{
+    padding: 22px 20px 14px;
+    color: var(--cream);
+    text-align: center;
+    border-bottom: 2px dashed rgba(251,246,233,0.35);
+  }
+  .shop-eyebrow{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .shop-title{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+    .shop-subtitle{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+  .shop-meta{
+    font-size: 13.5px;
+    color: rgba(251,246,233,0.85);
+    line-height: 1.7;
+  }
+  .shop-meta b{ color: var(--gold); font-weight: 700; }
+  .performer-link{
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+  }
+  .shop-note{
+    margin-top: 12px;
+    font-size: 13.5px;
+    color: rgba(251,246,233,0.65);
+    line-height: 1.6;
+    border-top: 1px solid rgba(251,246,233,0.2);
+    padding-top: 10px;
+  }
+
+  /* ---------- Sticky category tabs ---------- */
+  .tabbar-wrap{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--red);
+    box-shadow: var(--shadow);
+  }
+  .tabbar{
+    display:flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 14px;
+    scrollbar-width: none;
+  }
+  .tabbar::-webkit-scrollbar{ display:none; }
+  .tab-btn{
+    flex: 0 0 auto;
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: rgba(251,246,233,0.75);
+    background: rgba(0,0,0,0.15);
+    border: 1px solid rgba(251,246,233,0.25);
+    border-radius: 999px;
+    padding: 8px 16px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .tab-btn.active{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  /* ---------- Sections ---------- */
+  .category-section{ padding: 26px 16px 6px; }
+  .category-head{ margin-bottom: 14px; color: var(--cream); }
+  .category-name{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 28px;
+  }
+  .category-sub{
+    font-size: 14px;
+    color: rgba(251,246,233,0.65);
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* ---------- Item card (menu item / program piece) ---------- */
+  .item-card{
+    background: var(--cream);
+    border-radius: 13px;
+    padding: 14px 14px 12px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    position: relative;
+    border: 1px solid rgba(32,26,22,0.06);
+  }
+  .item-title{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0 0 2px;
+    line-height: 1.4;
+  }
+  .item-composer{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .item-note{
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(32,26,22,0.78);
+    border-top: 1px dashed var(--line);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  /* ---------- Bottom cart / order bar ---------- */
+  .order-bar{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 14px;
+    width: calc(100% - 28px);
+    max-width: 452px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 12px 16px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    z-index: 40;
+  }
+  .order-info{ font-size: 14px; line-height: 1.5; }
+  .order-info b{
+    font-family:"Noto Serif TC", serif;
+    font-size: 14px;
+    color: var(--gold);
+    display:block;
+  }
+  .order-btn{
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  /* ---------- Receipt drawer ---------- */
+  .drawer-backdrop{
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.45);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+  }
+  .drawer-backdrop.open{ opacity: 1; pointer-events: auto; }
+
+  .receipt-drawer{
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 100%);
+    width: 100%;
+    max-width: 480px;
+    max-height: 82vh;
+    overflow-y: auto;
+    background: var(--cream);
+    border-radius: 20px 20px 0 0;
+    z-index: 51;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1);
+    padding: 18px 22px 28px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+  }
+  .receipt-drawer.open{ transform: translate(-50%, 0); }
+  .receipt-handle{
+    width: 40px; height: 4px;
+    background: var(--line);
+    border-radius: 3px;
+    margin: 0 auto 14px;
+  }
+  .receipt-title{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 2px;
+  }
+  .receipt-sub{
+    text-align:center;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    color: rgba(32,26,22,0.55);
+    margin-bottom: 16px;
+  }
+  .receipt-list{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 15px;
+  }
+  .receipt-cat{
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--red);
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(32,26,22,0.15);
+  }
+  .receipt-cat:first-child{ padding-top: 0; }
+  .receipt-total{
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 2px dashed rgba(32,26,22,0.3);
+    display:flex;
+    justify-content: space-between;
+    font-family:"JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .receipt-zigzag{
+    height: 12px;
+    margin-top: 18px;
+    background:
+      linear-gradient(135deg, var(--red) 25%, transparent 25%) -6px 0,
+      linear-gradient(225deg, var(--red) 25%, transparent 25%) -6px 0;
+    background-size: 12px 12px;
+    background-repeat: repeat-x;
+  }
+
+  /* ---------- Submit order ---------- */
+  .submit-order{
+    display:block;
+    width: 100%;
+    margin-top: 16px;
+    background: var(--red);
+    color: var(--cream);
+    border: none;
+    border-radius: 12px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 16.5px;
+    padding: 13px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .submit-order:active{ background: var(--red-dark); }
+
+  /* ---------- Confirm / chef note view ---------- */
+  .confirm-view{
+    display:none;
+    text-align: center;
+    padding: 6px 0 4px;
+  }
+  .confirm-view.show{ display:block; }
+  .stamp{
+    display:inline-block;
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--red);
+    border: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 6px 18px;
+    transform: rotate(-8deg);
+    letter-spacing: 4px;
+    margin: 8px auto 18px;
+    animation: stamp-in .35s cubic-bezier(.2,.9,.3,1.4);
+  }
+  @keyframes stamp-in{
+    0%{ opacity:0; transform: rotate(-8deg) scale(2.2); }
+    70%{ opacity:1; }
+    100%{ opacity:1; transform: rotate(-8deg) scale(1); }
+  }
+  .chef-title{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .chef-note{
+    font-size: 15px;
+    line-height: 1.9;
+    color: rgba(32,26,22,0.85);
+    text-align: left;
+    background: rgba(220,201,167,0.5);
+    border-radius: 12px;
+    padding: 14px 16px;
+    white-space: pre-line;
+  }
+  .back-to-menu{
+    display:block;
+    margin: 18px auto 4px;
+    background: none;
+    border: 1px solid rgba(32,26,22,0.25);
+    border-radius: 999px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    padding: 9px 18px;
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stamp{ animation: none; }
+  }
+  .close-drawer{
+    display:block;
+    margin: 16px auto 0;
+    background: none;
+    border: none;
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--blue);
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .receipt-drawer, .drawer-backdrop, .tab-btn{ transition: none; }
+  }
+
+  /* ---------- Performer info modal ---------- */
+  .performer-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    width: calc(100% - 56px);
+    max-width: 380px;
+    z-index: 51;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .performer-modal.open{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .performer-card{
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .performer-name{
+    font-family:"Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 25px;
+  }
+  .performer-role{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 15px;
+    color: var(--blue);
+    margin: 4px 0 14px;
+  }
+  .performer-bio{
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(32,26,22,0.8);
+    text-align: left;
+  }
+  .performer-card .close-drawer{ margin-top: 18px; }
+  @media (prefers-reduced-motion: reduce){
+    .performer-modal{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="shop-header">
+  <div class="shop-eyebrow">帥哥美女要吃什麼</div>
+  <div class="shop-title">薩沁蔡</div>
+  <div class="shop-subtitle">伍宇沁＆蔡佩恩聯合音樂會</div>
+  <div class="shop-meta">
+    薩克斯風獨奏：<b class="performer-link" data-performer="saxophone1">蔡佩恩</b>．<b class="performer-link" data-performer="saxophone2">伍宇沁</b><br>鋼琴合作：<b class="performer-link" data-performer="piano">黃楚涵</b><br>
+    2026 / 08 / 09（日）19:30．郭音樂廳
+  </div>
+  <div class="shop-note">
+    我們有沁有蔡，但面對音樂，我們絕不「青菜」<br>
+    《薩沁蔡》今夜限定營業中，希望帶給每位聽眾最高級的饗宴
+  </div>
+</header>
+
+<div class="tabbar-wrap">
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+
+<main id="main"></main>
+
+<div class="order-bar">
+  <div class="order-info">
+    <b id="orderTotalCount">已點 0 首</b>
+     你所點播的曲目，即將上菜。
+  </div>
+  <button class="order-btn" id="openReceipt">查看節目單</button>
+</div>
+
+<div class="drawer-backdrop" id="backdrop"></div>
+<div class="receipt-drawer" id="receipt">
+  <div class="receipt-handle"></div>
+  <div class="receipt-title">本場節目單</div>
+  <div class="receipt-sub" id="receiptMeta"></div>
+  <div id="orderView">
+    <div class="receipt-list" id="receiptList"></div>
+    <div class="receipt-total">
+      <span>TOTAL</span>
+      <span id="receiptTotal">0 首</span>
+    </div>
+    <button class="submit-order" id="submitOrder">送出訂單 →</button>
+  </div>
+
+  <div id="confirmView" class="confirm-view">
+    <div class="stamp">感謝聆聽</div>
+    <div class="chef-title">— 想說的話 —</div>
+    <div class="chef-note" id="chefNote"></div>
+    <button class="back-to-menu" id="backToMenu">← 返回菜單瀏覽</button>
+  </div>
+
+  <div class="receipt-zigzag"></div>
+  <button class="close-drawer" id="closeReceipt">收起 ▾</button>
+</div>
+
+<div class="performer-modal" id="performerModal">
+  <div class="performer-card">
+    <div class="performer-name" id="performerName"></div>
+    <div class="performer-role" id="performerRole"></div>
+    <div class="performer-bio" id="performerBio"></div>
+    <button class="close-drawer" id="closePerformer">關閉 ✕</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   範例曲目資料 — 之後請直接替換這個陣列裡的內容即可
+   ============================================================ */
+const PROGRAM = [
+  {
+    id: 'soup',
+    name: '天國の月',
+    sub: 'Performer：蔡佩恩',
+    items: [
+      {title:'天國之月', composer:'長生淳',
+       note:'《天國之月》（La lune en paradis）由日本作曲家長生淳（Jun Nagao，1964–）於 1995 年受薩克斯風大師須川展也委託創作。<br>全曲由風格對比鮮明的兩大部分組成。第一部分充滿神秘色彩，透過不斷變化應用的音樂動機，描繪出一步步追尋那遙不可及之月的渴望與執著。第二部分則轉為疾速而激烈的風格，薩克斯風與鋼琴彼此交織對話，並融入爵士元素，在絢麗的音樂與強烈的張力中，將樂曲推向輝煌的終點。'},
+    ]
+  },
+  {
+    id: 'appetizer',
+    name: 'Sonate en Ut♯ pour saxophone alto et Orchestre',
+    sub: 'Performer：伍宇沁',
+    items: [
+      {title:'升C小調奏鳴曲', composer:'Fernande Decruck',
+       note:'法國作曲家 Fernande Decruck 於1943年創作的《升C小調奏鳴曲》是薩克斯風經典曲目之一，並題獻給法國薩克斯風大師 Marcel Mule。<br>全曲共四個樂章：<br>第一樂章 Modéré et très expressif（中板，極富表情）<br>以沉穩而神秘的氛圍展開，在古典奏鳴曲架構中融合法國印象派和聲與豐富色彩，展現薩克斯風寬廣而富歌唱性的旋律。<br>第二樂章 Andante（Noël） <br>引用了法國傳統聖誕頌歌《Noël Nouvelet》的旋律素材，使音樂流露出寧靜、莊嚴且帶有淡淡憂鬱的宗教氛圍。<br>第三樂章 Fileuse（紡紗女）<br>以快速流動的音型描繪紡紗輪不停旋轉的景象，技巧華麗，是全曲最具炫技性的段落。<br>第四樂章 Nocturne et Final（夜曲與終曲）<br>先以神秘沉思的夜曲展開，隨後轉入充滿力量與光彩的終曲，在英雄式的音樂中結束全曲。'},
+      { note:'中場休息 15 分鐘，請於燈光暗下後盡速入座。', hidden:true, isNote:true }
+    ]
+  },
+  {
+    id: 'main',
+    name: 'Next Angels',
+    sub: 'Performer：伍宇沁',
+    items: [
+      {title:'下一位天使', composer:'清水大輔',
+       note:'《Next Angels》是日本作曲家清水大輔於2002年改編完成的薩克斯風與鋼琴作品，原曲最初是為友人婚禮所創作的鋼琴曲。當時友人的妻子正懷著新生命，作曲家便將「第一位天使」比喻為新娘，而「下一位天使（Next Angels）」則象徵即將誕生的孩子，因此以此命名，希望演奏者能透過音樂傳達作品所蘊含的「溫柔」與「愛」，讓聽眾感受到生命延續所帶來的幸福與希望。<br>全曲約六分鐘，旋律優美流暢，以薩克斯風溫暖且富有歌唱性的音色為主軸，搭配鋼琴細膩柔和的伴奏，描繪生命從孕育、成長到迎向未來的美好景象。樂曲在抒情與明亮之間自然流轉，時而沉靜內斂，時而充滿希望與光彩，充分展現薩克斯風豐富的音色變化與情感表現力。'}
+    ]
+  },
+  {
+    id: 'special',
+    name: 'Maï',
+    sub: 'Performer：蔡佩恩',
+    items: [
+      {title:'舞', composer:'野田燎',
+       note:'《舞》（Mai）創作於 1975 年，作曲家野田燎（Ryo Noda, 1948–）同時也是享譽國際的日本薩克斯風演奏家。作品以日本傳統樂器「尺八」為靈感，透過薩克斯風模仿尺八特有的音色與演奏方式，呈現出與日本能劇相似的色彩與氛圍。作品沒有固定的小節線，使音樂的流動更加自由；「沉默」也是重要的音樂元素，休止不只是停頓，更像是呼吸與等待，在聲音與寂靜之間營造張力。<br>本曲並與詩作〈海戰〉相互呼應，詩作改編自《平家物語》，描寫平家武士將軍平清經（Kiyotsune Taira）在一場注定失敗的海戰前夕的心境。音樂與詩詞交織，呈現孤寂、緊張而悲壯的氛圍。'},
+    { title:'海戰', composer:'《平家物語》  文：Jean Leduc，根據野田良的敘述改編',note:'在秋夜的黃昏時分，當月光將銀色光芒映照在波濤之上時，平清津將軍正吹奏著笛子。<br><br>他佇立於船首，握緊匕首，割斷束起長髮的髮辮，將其置於腳邊，隨後便消失於波濤之中。<br><br>在府邸門前，這位武士的幽靈顯現。他的妻子面對著他，問道：「你為何離去？」「為了拯救我的軍隊，」他回答道，「因為我知道這場戰役注定會輸，所以我這樣做是為了保全我的士兵及其家人的性命。」<br><br>「那我呢？」她說，「你有想過我嗎？」', hidden:true, isNote:false }
+    ]
+  },
+  {
+    id: 'side',
+    name: 'Scaramouche Suite pour Saxophone et Orchestre mov.I',
+    sub: 'Performer：伍宇沁',
+    items: [
+      {title:'Scaramouche', composer:'Darius Milhaud',
+       note:'《Scaramouche》創作於1937年，最初取材自米堯為莫里哀戲劇《飛行醫生》（Le Médecin volant）所創作的舞臺音樂，後改編為雙鋼琴組曲，並陸續發展出薩克斯風、單簧管與其他編制版本，其中薩克斯風版本更成為經典保留曲目。<br>「Scaramouche」源自義大利即興喜劇（Commedia dell’arte）中的滑稽角色，象徵機智、幽默與活潑的戲劇性格，也反映在作品鮮明的音樂風格之中。<br>第一樂章 Vif（活潑地）以明亮而充滿活力的主題揭開序幕，節奏輕快流暢，旋律富有律動感與彈性。作曲家透過豐富的節奏變化、靈巧的旋律線條及多調性的和聲色彩，使音樂充滿幽默感與戲劇張力。薩克斯風與鋼琴之間頻繁的對答與互動，不僅展現兩者緊密的合作關係，也充分發揮薩克斯風靈活敏捷的演奏特色，為整首作品奠定輕鬆、愉悅且充滿生命力的基調。'}
+    ]
+  },
+  {
+    id: 'drink',
+    name: 'Suite Hellenique',
+    sub: 'Performer：蔡佩恩',
+    items: [
+      {title:'希臘組曲', composer:'Pedro Iturralde',
+       note:'西班牙薩克斯風大師Pedro Iturralde（1929-2020）以融合佛朗明哥、爵士與古典音樂聞名於世。本曲《希臘組曲》源於大師年輕時在希臘等地的巡迴經歷，他巧妙地將南歐與地中海的民間音樂與當代爵士語彙冶為一爐。<br>全曲由四個性格鮮明的樂章組成：第一樂章〈Kalamatianos〉採用傳統希臘舞曲獨特的 7/8 拍律動；第二樂章〈Funky〉風格一轉，展現強烈的現代爵士放克與切分節奏；第三樂章〈Valse〉則以溫柔憂鬱的華爾茲旋律訴說地中海風情；終樂章〈Kritis〉取材自克里特島的疾速狂舞，音樂在速度與氣氛的極限飆升中，迎來熱烈澎湃的終曲。'}
+    ]
+  }
+];
+
+/* ============================================================
+   送出訂單後顯示的演出者留言 — 之後請替換成真正的留言內容
+   支援換行，直接在字串裡按 Enter 或用 \n 即可
+   ============================================================ */
+const CHEF_NOTE = `給每一位來到這裡的你，
+薩克斯風對我而言，是生命中一個很特別的存在。有時，它是我面對課業壓力時的避風港；有時，它像一位知心好友，彷彿只有它能理解我；而有時，它又像一面特別的鏡子，讓我在演奏的過程中，透過流動的樂音，看見連自己都未曾察覺的模樣。
+小時候，我總以課業為重，因此能夠練習演奏，對我而言是一件珍貴而享受的事。然而，當薩克斯風在大學成為正式的專業課業，我卻一度有些無所適從。當興趣成為專業，熱愛與壓力交織在一起，也讓我開始思考：薩克斯風究竟是我的什麼？
+我曾經在日復一日的練習中感到麻木，也曾失去前進的動力。但總有某個瞬間、某個樂句，或某個音的共鳴，讓我重新找回自己對音樂的熱情。
+其中，《天國之月》對我而言有著特別的意義。我想像著一個人不斷追尋遙不可及的月亮，即使沿途充滿困難，仍不忘最初出發的理由。那些反覆出現、彼此呼應的動機，就像我一路走來始終沒有放棄的初心。無論是選擇走上音樂的道路，或是挑戰這首對我而言十分困難的作品，我想追尋的或許從來不是一個明確的終點，而是在不斷嘗試、失敗與成長的過程中，為自己的生命寫下更多故事。
+這場音樂會，也是我追尋夢想的一段旅程。從尋找場地到第一次親自籌辦音樂會，這一路上，因為有老師、家人、朋友，以及每一位來到現場的你，我才能走到今天。謝謝你們陪我走過這段旅程。希望今晚的音樂，能為你帶來片刻的享受，也成為你生命中一段美好的小回憶。
+蔡佩恩 2026.08.09
+`;
+
+/* ============================================================
+   演出者資訊彈窗內容 — key 要對應 HTML 裡 data-performer 的值
+   ============================================================ */
+const PERFORMERS = {
+  saxophone1: { name:'蔡佩恩', role:'薩克斯風', bio:'目前就讀國立清華大學藝術學院學士班音樂組，主修薩克斯風，學習薩克斯風九年，師事陳谷榕老師、張柏方老師。 曾擔任須川展也演奏生涯35週年來台大師班示範學生，並於110學年度擔任高雄女中樂隊學生指揮。曾獲107學年度全國學生音樂比賽高雄市初賽國中A組甲等、109學年度全國學生音樂比賽高雄市初賽高中職B組優等、113學年度全國學生音樂比賽決賽大專組優等。' },
+  saxophone2: { name:'伍宇沁', role:'薩克斯風', bio:'目前就讀國立台中教育大學音樂學系，主修薩克斯風，副修鋼琴及理論作曲，啟蒙於謝政良老師，現師事於古博元教授。擔任Jeffrey Heisler大師班示範學生、111學年度高雄高工管樂社學生指揮。曾獲112學年度全國學生音樂比賽決賽薩克斯風獨奏B組優等、113學年度全國學生音樂比賽決賽大專組優等。' },
+  piano: { name:'黃楚涵', role:'鋼琴', bio:'美國德州大學奧斯汀分校(University of Texas at Austin) 音樂系鋼琴演奏博士、美國新英格蘭音樂院 (New England Conservatory of Music)鋼琴演奏碩士及學士。 目前任教於國立高雄師範大學音樂系、 國立中山大學音樂系、高雄市高雄中學、新興國中、台南女中等各級音樂班。' }
+};
+
+/* ---------- render - */
+const tabbar = document.getElementById('tabbar');
+const main = document.getElementById('main');
+const receiptList = document.getElementById('receiptList');
+
+let totalItems = 0;
+
+PROGRAM.forEach(cat => {
+  // tab button
+  const tab = document.createElement('button');
+  tab.className = 'tab-btn';
+  tab.textContent = cat.name;
+  tab.dataset.target = cat.id;
+  tab.addEventListener('click', () => {
+    document.getElementById('sec-' + cat.id).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  tabbar.appendChild(tab);
+
+  // section
+  const section = document.createElement('section');
+  section.className = 'category-section';
+  section.id = 'sec-' + cat.id;
+  section.innerHTML = `
+    <div class="category-head">
+      <div class="category-name">${cat.name}</div>
+      <div class="category-sub">${cat.sub}</div>
+    </div>
+  `;
+
+  // 節目單裡只列分類大標題，不列出詳細曲目
+  const receiptCat = document.createElement('div');
+  receiptCat.className = 'receipt-cat';
+  receiptCat.textContent = cat.name;
+  receiptList.appendChild(receiptCat);
+
+  cat.items.forEach(item => {
+    if (!item.hidden) totalItems++;
+
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    if (item.isNote) {
+  card.innerHTML = `<div class="item-note">${item.note}</div>`;
+} else {
+  card.innerHTML = `
+    <div class="item-title">${item.title}</div>
+    <div class="item-composer">${item.composer}</div>
+    <div class="item-note">${item.note}</div>
+  `;
+}
+    section.appendChild(card);
+  });
+
+  main.appendChild(section);
+});
+
+document.getElementById('orderTotalCount').textContent = `已點 ${totalItems} 首`;
+document.getElementById('receiptTotal').textContent = `${totalItems} 首`;
+document.getElementById('receiptMeta').textContent = `全場 ${totalItems} 首`;
+document.getElementById('chefNote').textContent = CHEF_NOTE;
+
+/* ---------- active tab highlight on scroll ---------- */
+const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+const sections = PROGRAM.map(c => document.getElementById('sec-' + c.id));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id.replace('sec-', '');
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+
+      const activeTab = tabButtons.find(b => b.dataset.target === id);
+      if (activeTab) {
+        activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+if (tabButtons[0]) tabButtons[0].classList.add('active');
+
+/* ---------- receipt drawer ---------- */
+const receipt = document.getElementById('receipt');
+const backdrop = document.getElementById('backdrop');
+const orderView = document.getElementById('orderView');
+const confirmView = document.getElementById('confirmView');
+
+function openReceipt(){
+  receipt.classList.add('open');
+  backdrop.classList.add('open');
+}
+function closeReceipt(){
+  receipt.classList.remove('open');
+  backdrop.classList.remove('open');
+  // 收起後重置成一般節目單畫面，下次打開才會從頭開始
+  orderView.style.display = 'block';
+  confirmView.classList.remove('show');
+}
+document.getElementById('openReceipt').addEventListener('click', openReceipt);
+document.getElementById('closeReceipt').addEventListener('click', closeReceipt);
+
+/* ---------- performer info modal ---------- */
+const performerModal = document.getElementById('performerModal');
+
+function closePerformerModal(){
+  performerModal.classList.remove('open');
+  backdrop.classList.remove('open');
+}
+
+document.querySelectorAll('.performer-link').forEach(el => {
+  el.addEventListener('click', () => {
+    const p = PERFORMERS[el.dataset.performer];
+    if (!p) return;
+    document.getElementById('performerName').textContent = p.name;
+    document.getElementById('performerRole').textContent = p.role;
+    document.getElementById('performerBio').textContent = p.bio;
+    performerModal.classList.add('open');
+    backdrop.classList.add('open');
+  });
+});
+document.getElementById('closePerformer').addEventListener('click', closePerformerModal);
+
+// 背景遮罩是兩種彈窗共用的，點擊時要把「目前開著的那個」關掉
+backdrop.addEventListener('click', () => {
+  closeReceipt();
+  closePerformerModal();
+});
+
+/* ---------- 送出訂單彩蛋：顯示演出者留言，再回到菜單瀏覽 ---------- */
+document.getElementById('submitOrder').addEventListener('click', () => {
+  orderView.style.display = 'none';
+  confirmView.classList.add('show');
+});
+document.getElementById('backToMenu').addEventListener('click', () => {
+  closeReceipt(); // 收起抽屜，回到原本瀏覽節目冊的畫面
+});
+</script>
+
+</body>
+</html>
